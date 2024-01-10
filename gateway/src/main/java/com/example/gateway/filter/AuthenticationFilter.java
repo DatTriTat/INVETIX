@@ -5,7 +5,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
-
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import com.example.gateway.util.JwtUtil;
 
 @Component
@@ -24,6 +24,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
+            ServerHttpRequest request = null;
             if (validator.isSecured.test(exchange.getRequest())) {
                 if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                     throw new RuntimeException("missing authorization header");
@@ -34,15 +35,14 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     authHeader = authHeader.substring(7);
                 }
                 try {
-
                     jwtUtil.validateToken(authHeader);
-
+                    request = exchange.getRequest().mutate().header("LoggedInUser", jwtUtil.extractUsername(authHeader)).build();
                 } catch (Exception e) {
                     System.out.println("invalid access...!");
                     throw new RuntimeException("un authorized access to application");
                 }
             }
-            return chain.filter(exchange);
+            return chain.filter(exchange.mutate().request(request).build());
         });
     }
 
