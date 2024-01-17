@@ -20,7 +20,7 @@ public class AuthService {
     private JwtService jwtService;
 
     public String saveUser(User user) {
-        Optional<User> credential = userRepository.findByUsernameAndPassword(user.getUserName(), user.getPassword());
+        Optional<User> credential = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         if (credential.isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);

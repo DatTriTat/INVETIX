@@ -17,13 +17,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<User> credential = userRepository.findByUserName(userName);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> credential = userRepository.findByUsername(username);
         if (!credential.isEmpty()) {
             return new CustomUserDetails(credential.get());
         } else {
-            System.out.println("User not found: " + userName);
-            throw new UsernameNotFoundException("User not found: " + userName);
+            System.out.println("User not found: " + username);
+            throw new UsernameNotFoundException("User not found: " + username);
         }
     }
 }

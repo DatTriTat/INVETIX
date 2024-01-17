@@ -25,10 +25,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public String getToken(@RequestBody AuthRequest authRequest) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
-        System.out.println(authRequest.getUserName() +"  "+ authRequest.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        System.out.println(authRequest.getUsername() +" 1"+ authRequest.getPassword());
         if (authenticate.isAuthenticated()) {
-            return service.generateToken(authRequest.getUserName());
+            return service.generateToken(authRequest.getUsername());
         } else {
             throw new RuntimeException("invalid access");
         }
