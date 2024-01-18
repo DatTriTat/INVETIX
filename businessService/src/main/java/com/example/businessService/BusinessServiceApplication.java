@@ -1,4 +1,4 @@
-package com.example.businessservice;
+package com.example.businessService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

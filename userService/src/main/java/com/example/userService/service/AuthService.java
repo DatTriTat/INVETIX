@@ -20,7 +20,9 @@ public class AuthService {
     private JwtService jwtService;
 
     public String saveUser(User user) {
-        Optional<User> credential = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        Optional<User> credential = userRepository.findByUsername(user.getUsername());
+        System.out.println(user.getUsername());
+
         if (credential.isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
@@ -29,6 +31,15 @@ public class AuthService {
         return "user already exist";
     }
 
+    public long userId(String username) {
+        System.out.println(username);
+        Optional<User> credential = userRepository.findByUsername(username);
+        System.out.println(credential);
+        if (credential.isEmpty()) {
+            return -1;
+        }
+        return credential.get().getId();
+    }
     public String generateToken(String userName) {
         return jwtService.generateToken(userName);
     }
