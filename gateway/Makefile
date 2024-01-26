@@ -22,6 +22,12 @@ mysql:
 mysql-shell:
 	docker exec -it mysql bash 
 
+docker-run:
+	docker run --network inventix --name gateway -td -p 8080:8080 gateway
+
+docker-build:
+	docker build -t gateway .
+
 
 docker-clean:
 	docker stop spring-starbucks-api
@@ -34,7 +40,7 @@ docker-shell:
 docker-push:
 	mvn package
 	docker login
-	docker build -t dattritat/spring-starbucks-api:v3.6 .
+	docker build -t dattritat/gateway .
 	docker push dattritat/spring-starbucks-api:v3.6
 
 # Compose
@@ -43,7 +49,7 @@ network-ls:
 	docker network ls 
 
 network-create:
-	docker network create --driver bridge starbucks-network
+	docker network create --driver bridge inventix
 
 network-prune:
 	docker network prune

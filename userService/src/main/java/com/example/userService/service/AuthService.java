@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.example.userService.dto.AuthRequest;
 import com.example.userService.model.User;
 import com.example.userService.repository.UserRepository;
 
@@ -46,6 +48,12 @@ public class AuthService {
 
     public void validateToken(String token) {
         jwtService.validateToken(token);
+    }
+
+    public void change(AuthRequest user) {
+        Optional<User> credential = userRepository.findByUsername(user.getUsername());
+        credential.get().setPassword(passwordEncoder.encode(user.getPassword()));
+        
     }
 
 }

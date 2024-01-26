@@ -36,6 +36,12 @@ public class AuthController {
             throw new RuntimeException("invalid access");
         }
     }
+
+    @PostMapping("/changePassword")
+    public String changePW(@RequestBody AuthRequest authRequest) {
+        service.change(authRequest);
+        return "Changed Sucessfully";
+    }
     
     @GetMapping("/validate")
     public String validateToken(@RequestParam("token") String token) {

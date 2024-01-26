@@ -1,7 +1,5 @@
 package com.example.businessService.controller;
 
-import java.util.Enumeration;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +22,20 @@ public class BusinessController {
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         service.create(name, business, authHeader);
         return name + " Created Sucessfully";
+    } 
+
+    @GetMapping("/information")
+    public Business BusinessInformation(@RequestHeader("LoggedInUser") String name,HttpServletRequest request) {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+       
+        return service.getBusiness(name, authHeader);
+    } 
+
+
+    @PostMapping("/edit")
+    public String editBusiness(@RequestHeader("LoggedInUser") String name, @RequestBody BusinessDTO business,HttpServletRequest request) {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        service.edit(name, business, authHeader);
+        return name + " Edited Sucessfully";
     } 
 }

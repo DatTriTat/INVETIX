@@ -27,7 +27,7 @@ docker-build:
 	docker build -t service-registry .
 
 docker-run:
-	docker run --name service-registry -td -p 8761:8761 service-registry
+	docker run --network inventix --name service-registry -td -p 8761:8761 service-registry
 
 docker-clean:
 	docker stop spring-starbucks-api
@@ -49,7 +49,7 @@ network-ls:
 	docker network ls 
 
 network-create:
-	docker network create --driver bridge starbucks-network
+	docker network create --driver bridge inventix
 
 network-prune:
 	docker network prune
