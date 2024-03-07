@@ -9,4 +9,5 @@ import lombok.*;
 public class BusinessDTO {
     private String businessName;
     private String type;
+    private String description;
 }

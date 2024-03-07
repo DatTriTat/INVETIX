@@ -50,8 +50,5 @@ public class AuthController {
         return "Token is valid";
     }
 
-    @PostMapping("/userId")
-    public long getUserId(@RequestBody Map<String, String> userRequest) {
-        return service.userId(userRequest.get("username").toString());
-    }
+
 }

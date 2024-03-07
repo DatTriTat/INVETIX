@@ -1,14 +1,12 @@
 package com.example.businessService.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.businessService.dto.BusinessDTO;
 import com.example.businessService.model.Business;
 import com.example.businessService.service.BusinessService;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 
 @RestController
@@ -18,24 +16,21 @@ public class BusinessController {
     private BusinessService service;
 
     @PostMapping("/create")
-    public String CreateBusiness(@RequestHeader("LoggedInUser") String name, @RequestBody BusinessDTO business,HttpServletRequest request) {
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        service.create(name, business, authHeader);
+    public String CreateBusiness(@RequestHeader("LoggedInUser") String name, @RequestBody BusinessDTO business) {
+        service.create(name, business);
         return name + " Created Sucessfully";
     } 
 
     @GetMapping("/information")
-    public Business BusinessInformation(@RequestHeader("LoggedInUser") String name,HttpServletRequest request) {
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-       
-        return service.getBusiness(name, authHeader);
+    public Business BusinessInformation(@RequestHeader("LoggedInUser") String name) {
+        return service.getBusiness(name);
     } 
-
 
     @PostMapping("/edit")
-    public String editBusiness(@RequestHeader("LoggedInUser") String name, @RequestBody BusinessDTO business,HttpServletRequest request) {
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        service.edit(name, business, authHeader);
-        return name + " Edited Sucessfully";
+    public String editBusiness(@RequestHeader("LoggedInUser") String name, @RequestBody BusinessDTO business) {
+        service.edit(name, business);
+        return name + "Edited Sucessfully";
     } 
+
+
 }

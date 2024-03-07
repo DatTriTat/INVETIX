@@ -27,10 +27,9 @@ public class Business {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "ownerId")
-    @NotNull(message = "OwnerId name cannot be empty")
-    private long ownerId;
-
+    @Column(name = "description")
+    private String description;
+    
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

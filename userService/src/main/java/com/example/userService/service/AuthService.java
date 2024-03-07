@@ -33,15 +33,6 @@ public class AuthService {
         return "user already exist";
     }
 
-    public long userId(String username) {
-        System.out.println(username);
-        Optional<User> credential = userRepository.findByUsername(username);
-        System.out.println(credential);
-        if (credential.isEmpty()) {
-            return -1;
-        }
-        return credential.get().getId();
-    }
     public String generateToken(String userName) {
         return jwtService.generateToken(userName);
     }
