@@ -28,6 +28,16 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "firstname")
+    private String firstName;
+
+    @Column(name = "lastname")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

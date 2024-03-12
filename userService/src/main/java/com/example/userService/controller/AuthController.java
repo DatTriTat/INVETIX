@@ -1,10 +1,9 @@
 package com.example.userService.controller;
 
 import com.example.userService.dto.AuthRequest;
+import com.example.userService.dto.AuthResponse;
 import com.example.userService.model.User;
 import com.example.userService.service.AuthService;
-
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,10 +27,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String getToken(@RequestBody AuthRequest authRequest) {
+    public AuthResponse getToken(@RequestBody AuthRequest authRequest) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if (authenticate.isAuthenticated()) {
-            return service.generateToken(authRequest.getUsername());
+            User getUser = service.getUser(authRequest.getUsername());
+            return new AuthResponse(getUser.getUsername(), service.generateToken(authRequest.getUsername()), getUser.getFirstName(), getUser.getLastName(), getUser.getEmail());
         } else {
             throw new RuntimeException("invalid access");
         }

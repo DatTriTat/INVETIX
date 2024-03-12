@@ -33,6 +33,8 @@ public class AuthService {
         return "user already exist";
     }
 
+
+
     public String generateToken(String userName) {
         return jwtService.generateToken(userName);
     }
@@ -44,7 +46,12 @@ public class AuthService {
     public void change(AuthRequest user) {
         Optional<User> credential = userRepository.findByUsername(user.getUsername());
         credential.get().setPassword(passwordEncoder.encode(user.getPassword()));
-        
+        userRepository.save(credential.get());
+    }
+
+    public User getUser(String userName) {
+        Optional<User> credential = userRepository.findByUsername(userName);
+        return credential.get();
     }
 
 }

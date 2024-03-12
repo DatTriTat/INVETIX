@@ -9,8 +9,8 @@ import com.example.businessService.service.CategoryService;
 
 
 @RestController
-@RequestMapping("/category") 
-public class CategoryController {
+@RequestMapping("/item") 
+public class ItemController {
 
     @Autowired
     private CategoryService categoryService;

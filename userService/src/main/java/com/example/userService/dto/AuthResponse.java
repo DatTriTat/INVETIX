@@ -1,5 +1,6 @@
 package com.example.userService.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,12 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
+public class AuthResponse {
 
     private String username;
-    private String password;
-    private String firstName;
-    private String firstLame;
+    private String token;
+    private String firtName;
+    private String lastName;
     private String email;
-
 }
